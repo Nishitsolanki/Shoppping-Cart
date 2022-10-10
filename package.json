@@ -1,0 +1,24 @@
+{
+  "name": "project-5",
+  "version": "1.0.0",
+  "description": "Shopping cart",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anubhav0347/Project-5.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anubhav0347/Project-5/issues"
+  },
+  "homepage": "https://github.com/Anubhav0347/Project-5#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "mongoose": "^6.6.5"
+  }
+}
