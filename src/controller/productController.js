@@ -5,7 +5,7 @@ const productModel = require('../models/productModel');
 const createProduct = async function (req, res) {
     try {
         const requestBody = req.body
-
+///group30
 
         if (!Object.keys(requestBody).length > 0) {
             return res.status(400).send({ status: false, message: 'Body Data is required' })
