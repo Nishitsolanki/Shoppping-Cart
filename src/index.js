@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const { default: mongoose } = require('mongoose')
 const multer = require ('multer');
 const aws = require ('aws-sdk')
-const route=require("./routes/route")
+const route=require("./route/route")
 const app= express()
 
 app.use(bodyParser.json())
