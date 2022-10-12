@@ -164,8 +164,27 @@ const loginUser = async function (req, res) {
   }
 };
 
+//===========================get user==================
 
-//**********************PUT API USER************************************
+const getuser=async function (req,res){
+    try{
+    let userId=req.params.userId
+    //if(!userId) return res.status(400).send({status:false,message:"userId should be present"})
+    if (!isValidObjectId(userId))
+      return res
+        .status(400)
+        .send({ status: false, message: "Please enter valid userId" });
+    const user=await userModel.findOne ({_id:userId})
+    return res.status(200).send({ status: true, message: 'User Profile Details', data: user })
+    } catch (error) {
+        res.status(500).send({ status: false, message: error.message })
+    }
+    }
+
+
+
+
+//==========================PUT API USER===================================
 
 const updateProfile = async function (req, res) {
   try {
@@ -256,12 +275,12 @@ const updateProfile = async function (req, res) {
     if (address) {
       if (address["shipping"]) {
         if (address["shipping"]["street"]) {
-          if (address.shipping.street.trim().length == 0 &&  !streetregex(address.shipping.street) )
+          if (address.shipping.street.trim().length == 0  ) // /&&  !streetregex(address.shipping.street)
             return res
               .status(400)
               .send({
                 status: false,
-                message: "Please enter valid street address for shipping ",
+                message: "Please enter  street address for shipping ",
               });
         }
         if (address.shipping.city) {
@@ -282,7 +301,7 @@ const updateProfile = async function (req, res) {
 //______________Billing address validations__________
       if (address["billing"]) {
         if (address["billing"]["street"]) {
-          if (address.billing.street.trim().length == 0 && !streetregex(address.shipping.street) )
+          if (address.billing.street.trim().length == 0  )   //&& !streetregex(address.shipping.street)
             return res.status(400).send({
               status: false,
               message: "Please enter valid street address for billing ",
@@ -331,22 +350,6 @@ const updateProfile = async function (req, res) {
   }
 };
 
-//===========================get user==================
-
-const getuser=async function (req,res){
-    try{
-    let userId=req.params.userId
-    //if(!userId) return res.status(400).send({status:false,message:"userId should be present"})
-    if (!isValidObjectId(userId))
-      return res
-        .status(400)
-        .send({ status: false, message: "Please enter valid userId" });
-    const user=await userModel.findOne ({_id:userId})
-    return res.status(200).send({ status: true, message: 'User Profile Details', data: user })
-    } catch (error) {
-        res.status(500).send({ status: false, message: error.message })
-    }
-    }
 
 
 module.exports={createUser,loginUser,updateProfile,getuser}
