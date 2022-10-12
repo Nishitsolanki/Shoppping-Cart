@@ -107,7 +107,7 @@ const createUser = async function (req, res) {
 }
 
 
-//*****Valid********** 
+//*****Validation********** 
 const isValidObjectId = (ObjectId) => {
   return mongoose.Types.ObjectId.isValid(ObjectId);
 };
@@ -122,6 +122,8 @@ const emailregex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
 const passwordregex = /^[a-zA-Z0-9!@#$%^&*]{8,15}$/;
 const pinregex = /^\d{6}$/;
 const streetregex = /^[0-9\\\/# ,a-zA-Z]+[ ,]+[0-9\\\/#, a-zA-Z]{1,}$/;
+
+
 
 //*********************POST LOGIN************************** 
 const loginUser = async function (req, res) {
