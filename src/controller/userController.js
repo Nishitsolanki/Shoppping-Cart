@@ -126,6 +126,7 @@ const streetregex = /^[0-9\\\/# ,a-zA-Z]+[ ,]+[0-9\\\/#, a-zA-Z]{1,}$/;
 
 
 //*********************POST LOGIN************************** 
+
 const loginUser = async function (req, res) {
   try {
     let emailId = req.body.email;
@@ -140,7 +141,7 @@ const loginUser = async function (req, res) {
       return res.status(400).send({ status: false, message: "password should be valid" });
 
     const user = await userModel.findOne({
-      email: emailId,
+      email: emailId
     });
     if (!user) {return res.status(400).send({ status: false, message: "email or password is not correct" });
     } else {
@@ -163,7 +164,9 @@ const loginUser = async function (req, res) {
   }
 };
 
+
 //**********************PUT API USER************************************
+
 const updateProfile = async function (req, res) {
   try {
     const userId = req.params.userId;
