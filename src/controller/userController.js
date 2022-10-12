@@ -336,7 +336,7 @@ const updateProfile = async function (req, res) {
 const getuser=async function (req,res){
     try{
     let userId=req.params.userId
-    if(!userId) return res.status(400).send({status:false,message:"userId should be present"})
+    //if(!userId) return res.status(400).send({status:false,message:"userId should be present"})
     if (!isValidObjectId(userId))
       return res
         .status(400)
