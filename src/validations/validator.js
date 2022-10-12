@@ -29,7 +29,7 @@ const isValidSyntaxOfEmail = function (value) {
 };
 
 const isValidMobileNum = function (value) {
-    let user = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$/.test(value)
+    let user = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$/.test(value)     ///^([6-9]\d{9})$/
     return user
 };
 
@@ -40,10 +40,9 @@ const isValidPinCode = (value) => {
 }
 
 const isValidPassword = (password) => {
-    if ( password.length < 8 || password.length > 15) {
-        return false
+    if ( /^[a-zA-Z0-9!@#$%^&*]{8,15}$/.test(password)) {
+        return true
     }
-    return true
 }
 
 const validateEmail = function (mail) {
