@@ -164,8 +164,27 @@ const loginUser = async function (req, res) {
   }
 };
 
+//===========================Get user======================
 
-//**********************PUT API USER************************************
+const getuser=async function (req,res){
+  try{
+  let userId=req.params.userId
+  if(!userId) return res.status(400).send({status:false,message:"userId should be present"})
+  if (!isValidObjectId(userId))
+    return res
+      .status(400)
+      .send({ status: false, message: "Please enter valid userId" });
+  const user=await userModel.findOne ({_id:userId})
+  return res.status(200).send({ status: true, message: 'User Profile Details', data: user })
+  } catch (error) {
+      res.status(500).send({ status: false, message: error.message })
+  }
+  }
+
+
+
+
+//==========================PUT API USER===================================
 
 const updateProfile = async function (req, res) {
   try {
@@ -332,7 +351,8 @@ const updateProfile = async function (req, res) {
 };
 
 
-module.exports={createUser,loginUser,updateProfile}
+
+module.exports={createUser,loginUser,updateProfile,getuser}
 
 
 
