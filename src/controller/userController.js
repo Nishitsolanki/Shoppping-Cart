@@ -275,12 +275,12 @@ const updateProfile = async function (req, res) {
     if (address) {
       if (address["shipping"]) {
         if (address["shipping"]["street"]) {
-          if (address.shipping.street.trim().length == 0 &&  !streetregex(address.shipping.street) )
+          if (address.shipping.street.trim().length == 0  ) // /&&  !streetregex(address.shipping.street)
             return res
               .status(400)
               .send({
                 status: false,
-                message: "Please enter valid street address for shipping ",
+                message: "Please enter  street address for shipping ",
               });
         }
         if (address.shipping.city) {
@@ -301,7 +301,7 @@ const updateProfile = async function (req, res) {
 //______________Billing address validations__________
       if (address["billing"]) {
         if (address["billing"]["street"]) {
-          if (address.billing.street.trim().length == 0 && !streetregex(address.shipping.street) )
+          if (address.billing.street.trim().length == 0  )   //&& !streetregex(address.shipping.street)
             return res.status(400).send({
               status: false,
               message: "Please enter valid street address for billing ",
