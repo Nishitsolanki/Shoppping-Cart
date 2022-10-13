@@ -17,11 +17,12 @@ router.get("/products/:productId", productController.getProductById)
 router.put("/products/:productId", productController.updateProduct)
 router.delete("/products/:productId",productController.deleteProduct)
 
-router.post('/testing',productController.testing)
+//router.post('/testing',productController.testing)
 
 //*******CART API********
-// router.post('/users/:userId/cart', cartController.createCart)
- router.get('/users/:userId/cart', cartController.getCart)
+router.post('/users/:userId/cart', cartController.createCart)
+router.get('/users/:userId/cart', cartController.getCart)
+router.put('/users/:userId/cart', cartController.updateCart)
 
 
 router.all("/*", async function(req,res){

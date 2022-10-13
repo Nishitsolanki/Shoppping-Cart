@@ -1,48 +1,48 @@
 const mongoose=require("mongoose")
 
-isValid = (value) => {
+const isValid = (value) => {
     if (typeof value === "undefined" || typeof value === "null") return true;
     if (typeof value === "string" && value.trim().length === 0) return true;
     if (typeof value === "object" && Object.keys(value).length === 0) return true;
     return false;
   }
   
-isValidBody = (reqBody) => {
+  const isValidBody = (reqBody) => {
     return Object.keys(reqBody).length === 0;
   }
   
-isValidString = (String) => {
+  const isValidString = (String) => {
       return /\d/.test(String)
     }
     
-isValidPhone = (Mobile) => {
+    const isValidPhone = (Mobile) => {
       return /^[6-9]\d{9}$/.test(Mobile)
     };
     
-isValidEmail = (Email) => {
+    const isValidEmail = (Email) => {
       return  /^([A-Za-z0-9._]{3,}@[A-Za-z]{3,}[.]{1}[A-Za-z.]{2,6})+$/.test(Email)
     };
     
-isValidPwd = (Password) => {
+    const isValidPwd = (Password) => {
        return /^(?!.* )(?=.*[a-zA-Z]).{8,15}$/.test(Password)   
     }
     
-isValidPincode = (num) => {
+    const isValidPincode = (num) => {
      return /^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/.test(num);
     }
   
-isValidObjectId = (objectId) => {
+    const isValidObjectId = (objectId) => {
       return mongoose.Types.ObjectId.isValid(objectId);
     }
   
-isValidPrice = (price) => {
+    const isValidPrice = (price) => {
       return /^[1-9]\d{0,7}(?:\.\d{1,2})?$/.test(price);
     }
     
-isValidSize = (sizes) => {
+    const isValidSize = (sizes) => {
       return ['S', 'XS', 'M', 'X', 'L', 'XXL', 'XL'].includes(sizes);
     }
-anyObjectKeysEmpty = (value) =>{ 
+    const anyObjectKeysEmpty = (value) =>{ 
     let obArr = Object.keys(value)
     let str = ''
     obArr.forEach(e=>{
@@ -55,12 +55,12 @@ anyObjectKeysEmpty = (value) =>{
     return str==""?false:str
   }
   
-isvalidCity = function (city){
+const isvalidCity = function (city){
     return /^[a-zA-z',.\s-]{1,25}$/.test(city)
   }
   
   
-isValidStatus = (status) => {
+const isValidStatus = (status) => {
     return ['pending', 'completed', 'cancelled'].includes(status);
   }
 

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const productModel = require('../models/productModel');
 const aws=require('../aws/config')
+const validation = require("../validations/validator.js")
 
 
 const isValid = function(value){
