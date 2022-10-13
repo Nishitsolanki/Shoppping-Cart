@@ -12,6 +12,12 @@ router.put('/user/:userId/profile', userController.updateProfile)
 
 //*********Product API*******
 router.post('/products',productController.createProduct)
+router.get("/products", productController.getProductsByQuery)
+router.get("/products/:productId", productController.getProductById)
+router.put("/products/:productId", productController.updateProduct)
+router.delete("/products/:productId",productController.deleteProduct)
+
+router.post('/testing',productController.testing)
 
 //*******CART API********
 // router.post('/users/:userId/cart', cartController.createCart)
