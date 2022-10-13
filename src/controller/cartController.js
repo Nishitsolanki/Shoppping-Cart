@@ -1,5 +1,6 @@
 const cartModel = require("../models/cartModel");
 const userModel = require("../models/userModel");
+const productModel = require('../models/productModel');
 const validation = require("../validations/validator.js")
 const mongoose=require("mongoose")
 
@@ -44,7 +45,7 @@ const createCart = async (req, res) => {
           return res.status(400).send({ status: false, message: "Invalid userId ID" })
 
       let { cartId,items } = data
-          let {productId,quantity}=items
+          let [{productId,quantity}]=data.items
          // console.log(productId,quantity)
 
       if (!validation.isValid(productId))
