@@ -187,7 +187,38 @@ const updateCart = async (req, res) => {
 
 }
 
+//===============================DELETE API CART=======================================
+const deleteCart = async function(req,res){
+  try {
+    const paramsId = req.params.userId
+    let cartId=req.body.cartId
+
+    if(!validation.isValidObjectId(paramsId)){
+        return res.status(400).send({status:false, message:'params id is not valid'})
+    }
+    if(!validation.isValidObjectId(cartId)){
+      return res.status(400).send({status:false, message:'cart id is not valid'})
+  }
+
+    const findUser = await userModel.findById(paramsId)
+    if(!findUser){
+        return res.status(404).send({status:false, message:'This user does not exist'})
+    }
+
+      // checking if cart is present or not  
+      let cart = await cartModel.findOne({ userId: paramsId });
+      if (!cart) {
+          return res.status(400).send({ status: false, message: `No cart found with this ${userId} userId` });
+      }
+  
+    let deleteData = await cartModel.findByIdAndUpdate({_id:cartId}, {isDeleted:true, deletedAt:Date.now()}, {new:true})
+  
+    res.status(200).send({status:false, message:'Data deleted Successfully'});
+  
+  } catch (error) {
+    res.status(500).send({ status: false, message: error.message });
+  }};
+    
 
 
-
-module.exports = { getCart,updateCart,createCart};
+module.exports = { getCart,updateCart,createCart, deleteCart};
