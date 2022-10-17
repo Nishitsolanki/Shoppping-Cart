@@ -23,8 +23,8 @@ router.delete("/products/:productId",productController.deleteProduct)
 //*******CART API********
 router.post('/users/:userId/cart', cartController.createCart)
 //router.post('/users/:userId/cart', test.createCart)
-// router.get('/users/:userId/cart', cartController.getCart)
-// router.put('/users/:userId/cart', cartController.updateCart)
+ router.get('/users/:userId/cart', cartController.getCart)
+ router.put('/users/:userId/cart', cartController.updateCart)
 
 
 router.all("/*", async function(req,res){

@@ -82,7 +82,7 @@ const getCart = async function (req, res) {
       return res
         .status(400)
         .send({ status: false, message: "userId should be present" });
-    if (!isValidObjectId(userId))
+    if (!validation.isValidObjectId(userId))
       return res
         .status(400)
         .send({ status: false, message: "Please enter valid userId" });
@@ -90,8 +90,8 @@ const getCart = async function (req, res) {
     let user = await userModel.findById(userId);
     if (!user)
       return res.status(400).send({ status: false, message: "user Not found" });
-
-    const fetchcart = await cartModel.findOne({ _id: userId });
+    
+    const fetchcart = await cartModel.findOne({ userId: userId });
 
     return res
       .status(200)
@@ -126,7 +126,7 @@ const updateCart = async (req, res) => {
           if (validation.isValid(data.cartId)) {
               return res.status(400).send({ status: false, message: "Please provide valid cart Id" });
           }
-          if (!isValidObjectId(data.cartId)) {
+          if (!validation.isValidObjectId(data.cartId)) {
               return res.status(400).send({ status: false, message: "Provide Valid Cart Id" });
           }
           if (cart._id.toString() !== data.cartId) {
@@ -136,7 +136,7 @@ const updateCart = async (req, res) => {
       if (validation.isValid(data.productId)) {
           return res.status(400).send({ status: false, message: "Please provide product Id " });
       }
-      if (!isValidObjectId(data.productId)) {
+      if (!validation.isValidObjectId(data.productId)) {
           return res.status(400).send({ status: false, message: "Please provide valid product Id" })
       }  
       let findProduct = await productModel.findById({ _id: data.productId })
