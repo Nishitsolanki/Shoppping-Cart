@@ -1,7 +1,7 @@
 const cartModel = require("../models/cartModel");
 const userModel = require("../models/userModel");
 const productModel = require('../models/productModel');
-const validation = require("../validator/validators.js")
+const validation = require("../validations/validator.js")
 const mongoose=require("mongoose")
 
 
@@ -16,16 +16,17 @@ const createCart = async (req, res) => {
         
          if (Object.keys(data).length === 0) return res.status(400).send({ status: false, message: "Request body can'nt be empty" })
 
-        if (!validation.isValidObjectId(userId)) return res.status(400).send({ status: false, message: "User id is Invalid" })
+        if (!validation.isValidObjectIdd(userId)) return res.status(400).send({ status: false, message: "User id is Invalid" })
 
-        if (validation.isValid(productId)) return res.status(400).send({ status: false, message: "Product id is required and should be a valid string" })
+        if (validation.isValidd(productId)) return res.status(400).send({ status: false, message: "Product id is required and should be a valid string" })
 
-         if (!validation.isValidObjectId(productId)) return res.status(400).send({ status: false, message: "Product Id is invalid" })
-
-        if (validation.isValid(quantity)) return res.status(400).send({ status: false, message: "Quantity is required" })
+         if (!validation.isValidObjectIdd(productId)) return res.status(400).send({ status: false, message: "Product Id is invalid" })
+//*imp product id aur quantity ek ek karke hit karna postman mai *//
+        if (validation.isValidd(quantity)) return res.status(400).send({ status: false, message: "Quantity is required" })
         if (isNaN(Number(quantity))) return res.status(400).send({ status: false, message: "Quantity should be a valid number" })
+        if (Number.isNaN(quantity))  return res.status(400).send({ status: false, message: "Quantity should be a valid number" })
         if (Number(quantity) < 1) return res.status(400).send({ status: false, message: "Quantity shouldn't be less than one" })
-
+     
         const userExist = await userModel.findById({ _id: userId })
         if (!userExist) return res.status(404).send({ status: false, message: `No user found with this ${userId}` })
 
@@ -82,7 +83,7 @@ const getCart = async function (req, res) {
       return res
         .status(400)
         .send({ status: false, message: "userId should be present" });
-    if (!validation.isValidObjectId(userId))
+    if (!validation.isValidObjectIdd(userId))
       return res
         .status(400)
         .send({ status: false, message: "Please enter valid userId" });
@@ -109,7 +110,7 @@ const updateCart = async (req, res) => {
       let userId = req.params.userId;
       let data = req.body
 
-      if (validation.isValid(data)) {
+      if (validation.isValidd(data)) {
           return res.status(400).send({ status: false, message: "Please provide details to remove product from cart " });
       }
 
@@ -123,27 +124,27 @@ const updateCart = async (req, res) => {
           return res.status(400).send({ status: false, message: "Cannot change or update total price or total Items" })
       }
       if (data.cartId || typeof data.cartId == "string") {
-          if (validation.isValid(data.cartId)) {
+          if (validation.isValidd(data.cartId)) {
               return res.status(400).send({ status: false, message: "Please provide valid cart Id" });
           }
-          if (!validation.isValidObjectId(data.cartId)) {
+          if (!validation.isValidObjectIdd(data.cartId)) {
               return res.status(400).send({ status: false, message: "Provide Valid Cart Id" });
           }
           if (cart._id.toString() !== data.cartId) {
               return res.status(400).send({ status: false, message: `cart Id does not match with provided User ID ${userId}` })
           }
       }
-      if (validation.isValid(data.productId)) {
+      if (validation.isValidd(data.productId)) {
           return res.status(400).send({ status: false, message: "Please provide product Id " });
       }
-      if (!validation.isValidObjectId(data.productId)) {
+      if (!validation.isValidObjectIdd(data.productId)) {
           return res.status(400).send({ status: false, message: "Please provide valid product Id" })
       }  
       let findProduct = await productModel.findById({ _id: data.productId })
       if (!findProduct) {
           return res.status(404).send({ status: false, message: "No product found with this product Id" })
       }
-      if (validation.isValid(data.removeProduct)) {
+      if (validation.isValidd(data.removeProduct)) {
           return res.status(400).send({ status: false, message: "removeProduct is required" })
       }
       if (!(/0|1/.test(data.removeProduct))) {
@@ -193,10 +194,10 @@ const deleteCart = async function(req,res){
     const paramsId = req.params.userId
     let cartId=req.body.cartId
 
-    if(!validation.isValidObjectId(paramsId)){
+    if(!validation.isValidObjectIdd(paramsId)){
         return res.status(400).send({status:false, message:'params id is not valid'})
     }
-    if(!validation.isValidObjectId(cartId)){
+    if(!validation.isValidObjectIdd(cartId)){
       return res.status(400).send({status:false, message:'cart id is not valid'})
   }
 

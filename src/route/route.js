@@ -29,6 +29,7 @@ router.post('/users/:userId/cart', cartController.createCart)
 
  //*******ORDER API********
  router.post('/users/:userId/orders', orderController.createOrder)
+ router.put('/users/:userId/orders', orderController.updateOrder)
 
 router.all("/*", async function(req,res){
     return res.status(400).send({status:false,message:"plz check url"})

@@ -61,7 +61,7 @@ const createUser = async function (req, res) {
     if (!validation.isValid(address.shipping.street)) {
         return res.status(400).send({ status: false, msg: "Invalid shipping street!" })
     }
-
+    
     if(!address.shipping.city) return res.status(400).send({status : false, message : "Shipping City is required!"})
     if (!validation.isValid(address.shipping.city)) {
         return res.status(400).send({ status: false, msg: "Invalid shipping city!" })
