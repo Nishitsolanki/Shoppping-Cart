@@ -53,4 +53,4 @@ const isvalidCity = function (city){
   
 
 
-  module.exports={isValidBody,isValidString,isValidPhone,isValidEmail,isValidPwd,isValidPincode,isValidObjectIdd,isValidPrice,isValidSize,anyObjectKeysEmpty,isvalidCity,isValidStatus}
+  module.exports={isValidString,isValidPhone,isValidEmail,isValidPwd,isValidPincode,isValidObjectIdd,isValidPrice,isValidSize,anyObjectKeysEmpty,isvalidCity}

@@ -1,8 +1,8 @@
 const userModel = require('../models/userModel')
 const bcrypt = require('bcrypt');
 const upload = require('../aws/config')
-const validation = require("../validations/validator.js")
-const jwt = require("jsonwebtoken");
+const validation = require("../validations/validator");
+//const jwt = require("jsonwebtoken");
 const multer = require("multer")
 const mongoose = require("mongoose");
 
@@ -20,7 +20,7 @@ const createUser = async function (req, res) {
     if (!validation.isValidBody(data)) {
         return res.status(400).send({ status: false, msg: "Please provide data in the request body!" })
     }
-
+     
     if(!fname) return res.status(400).send({status : false, message : "First Name is required!"})
     if (!validation.isValid(fname) && !validation.alphabetTestOfString(fname)) {
         return res.status(400).send({ status: false, msg: "fname is invalid" })
@@ -61,7 +61,7 @@ const createUser = async function (req, res) {
     if (!validation.isValid(address.shipping.street)) {
         return res.status(400).send({ status: false, msg: "Invalid shipping street!" })
     }
-    
+
     if(!address.shipping.city) return res.status(400).send({status : false, message : "Shipping City is required!"})
     if (!validation.isValid(address.shipping.city)) {
         return res.status(400).send({ status: false, msg: "Invalid shipping city!" })
