@@ -1,4 +1,12 @@
 const validator = require("email-validator");
+const mongoose= require("mongoose")
+
+const isValidd = (value) => {
+    if (typeof value === "undefined" || typeof value === "null") return true;
+    if (typeof value === "string" && value.trim().length === 0) return true;
+    if (typeof value === "object" && Object.keys(value).length === 0) return true;
+    return false;
+  }
 
 
 
@@ -7,6 +15,11 @@ const isValid = function (value) {
     if (typeof value === "string" && value.trim().length === 0) return false;
     return true;
 };
+
+
+const isValidObjectIdd = (objectId) => {
+    return mongoose.Types.ObjectId.isValid(objectId);
+  }
 
 const isValidBody = function (data) {
     return Object.keys(data).length > 0;
@@ -82,6 +95,14 @@ const validString = function(value) {
     return true;
 }
 
+const isValidBodyy = (reqBody) => {
+    return Object.keys(reqBody).length === 0;
+  }
+
+    
+const isValidStatus = (status) => {
+    return ['pending', 'completed', 'cancelled'].includes(status);
+  }
 
 
-module.exports = {isValid, isValidBody, alphabetTestOfString, isValidSyntaxOfEmail, isValidMobileNum, isValidPinCode, isValidPassword, validateEmail, idMatch, onlyNumbers, isValidPrice, cityRegex, streetRegex, validString}
+module.exports = {isValidd , isValid, isValidObjectIdd,isValidBody, alphabetTestOfString, isValidSyntaxOfEmail, isValidMobileNum, isValidPinCode, isValidPassword, validateEmail, idMatch, onlyNumbers, isValidPrice, cityRegex, streetRegex, validString,isValidBodyy,isValidStatus}

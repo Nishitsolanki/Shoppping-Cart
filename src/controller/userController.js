@@ -1,12 +1,10 @@
 const userModel = require('../models/userModel')
 const bcrypt = require('bcrypt');
 const upload = require('../aws/config')
-const validation = require("../validations/validator.js")
-const jwt = require("jsonwebtoken");
+const validation = require("../validations/validator");
+//const jwt = require("jsonwebtoken");
 const multer = require("multer")
 const mongoose = require("mongoose");
-
-
 
 
 
@@ -23,7 +21,7 @@ const createUser = async function (req, res) {
     if (!validation.isValidBody(data)) {
         return res.status(400).send({ status: false, msg: "Please provide data in the request body!" })
     }
-
+     
     if(!fname) return res.status(400).send({status : false, message : "First Name is required!"})
     if (!validation.isValid(fname) && !validation.alphabetTestOfString(fname)) {
         return res.status(400).send({ status: false, msg: "fname is invalid" })
@@ -191,9 +189,11 @@ const getuser=async function (req,res){
 
 const updateProfile = async function (req, res) {
   try {
-    const userId = req.params.userId;
+    const paramsId = req.params.userId;
+    //console.log(paramsId)
     let data = req.body;
 
+  
     if (!isValidObjectId(userId))
       return res
         .status(400)
@@ -206,6 +206,8 @@ const updateProfile = async function (req, res) {
           status: false,
           message: "for registration user data is required",
         });
+
+ 
 
     let { fname, lname, email, profileImage, phone, password, address } =req.body;
 

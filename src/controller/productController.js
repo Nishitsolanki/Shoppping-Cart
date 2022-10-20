@@ -78,7 +78,7 @@ const createProduct = async function(req,res)
             // availableSizes=["S", "XS", "M", "X", "L", "XXL", "XL"]
         if (availableSizes&&availableSizes=="object") {
             if (!availableSizes) return res.status(400).send({ status: false, msg: "provide size" })
-            let size=availableSizes.split(" ").map(x=>x.trim())
+            let size=availableSizes.split(",").map(x=>x.trim())   //,se tod dega  //M,S will be "M","S"
            for (let i=0;i<size.length;i++){
             if(!(["S", "XS", "M", "X", "L", "XXL", "XL"].includes(size[i])))
             return res.status(400).send({ status: false, msg: `Size should be among ${["S", "XS", "M", "X", "L", "XXL", "XL"]}` })
@@ -153,7 +153,7 @@ const getProductsByQuery = async function(req,res)
         };
        
         if (isValid(name)) {
-        filterQuery['title'] = { $regex: name, $options: "i" };
+        filterQuery['title'] = { $regex: name, $options: "i" };  //i:small letter ,capital letter dono le sakta hai
         };
 
      
@@ -312,7 +312,7 @@ const updateProduct = async function(req,res)
         }
       
 
-        let updateData = await productModel.findOneAndUpdate({_id:findProduct}, requestBody, {new:true})
+        let updateData = await productModel.findOneAndUpdate({_id:findProduct._id}, requestBody, {new:true})
 
         res.status(200).send({status:true, message:'Product Updated Successfully', data:updateData})
 
@@ -337,7 +337,9 @@ const deleteProduct = async function(req,res){
     }
 
     const findProduct = await productModel.findById(paramsId)
-
+    //const findProduct1 = await productModel.find( {_id:paramsId})
+    //console.log(typeof (findProduct1))
+    
     if(!findProduct){
         return res.status(404).send({status:false, message:'This prouct is not exist'})
     }
@@ -354,21 +356,6 @@ const deleteProduct = async function(req,res){
 
 
 
-let testing=async function(req,res){
-    let files=req.files
-    let data=req.body.Name
-    console.log(req.body)
-    let uploadedFileURL = await aws.uploadFile(files[0]);
-    let result={data}
-    result.uploadedFileURL=uploadedFileURL;
-res.send(result)
-}
-
-
 
 module.exports={createProduct,getProductsByQuery, getProductById,updateProduct,deleteProduct}
 
-// let test2= async function(req,res){
-//     let files=req.files;
-//     console.log(files)
-// }

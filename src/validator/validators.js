@@ -1,15 +1,7 @@
-const mongoose=require("mongoose")
+const mongoose= require("mongoose")
 
-const isValid = (value) => {
-    if (typeof value === "undefined" || typeof value === "null") return true;
-    if (typeof value === "string" && value.trim().length === 0) return true;
-    if (typeof value === "object" && Object.keys(value).length === 0) return true;
-    return false;
-  }
   
-  const isValidBody = (reqBody) => {
-    return Object.keys(reqBody).length === 0;
-  }
+ 
   
   const isValidString = (String) => {
       return /\d/.test(String)
@@ -31,7 +23,7 @@ const isValid = (value) => {
      return /^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/.test(num);
     }
   
-    const isValidObjectId = (objectId) => {
+    const isValidObjectIdd = (objectId) => {
       return mongoose.Types.ObjectId.isValid(objectId);
     }
   
@@ -59,9 +51,6 @@ const isvalidCity = function (city){
     return /^[a-zA-z',.\s-]{1,25}$/.test(city)
   }
   
-  
-const isValidStatus = (status) => {
-    return ['pending', 'completed', 'cancelled'].includes(status);
-  }
 
-  module.exports={isValid,isValidBody,isValidString,isValidPhone,isValidEmail,isValidPwd,isValidPincode,isValidObjectId,isValidPrice,isValidSize,anyObjectKeysEmpty,isvalidCity,isValidStatus}
+
+  module.exports={isValidString,isValidPhone,isValidEmail,isValidPwd,isValidPincode,isValidObjectIdd,isValidPrice,isValidSize,anyObjectKeysEmpty,isvalidCity}
