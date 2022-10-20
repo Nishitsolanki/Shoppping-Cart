@@ -1,7 +1,7 @@
 const cartModel = require("../models/cartModel");
 const userModel = require("../models/userModel");
 const productModel = require('../models/productModel');
-const validation = require("../validations/validator.js")
+const validation = require("../validations/validator")
 const mongoose=require("mongoose")
 
 

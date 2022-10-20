@@ -105,4 +105,4 @@ const isValidStatus = (status) => {
   }
 
 
-module.exports = {isValidd,isValid, isValidObjectIdd,isValidBody, alphabetTestOfString, isValidSyntaxOfEmail, isValidMobileNum, isValidPinCode, isValidPassword, validateEmail, idMatch, onlyNumbers, isValidPrice, cityRegex, streetRegex, validString,isValidBodyy,isValidStatus}
+module.exports = {isValidd , isValid, isValidObjectIdd,isValidBody, alphabetTestOfString, isValidSyntaxOfEmail, isValidMobileNum, isValidPinCode, isValidPassword, validateEmail, idMatch, onlyNumbers, isValidPrice, cityRegex, streetRegex, validString,isValidBodyy,isValidStatus}
