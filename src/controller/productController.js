@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const productModel = require('../models/productModel');
 const aws=require('../aws/config')
+const validation = require("../validations/validator.js")
 
 
 const isValid = function(value){
@@ -71,10 +72,24 @@ const createProduct = async function(req,res)
             return res.status(400).send({status:false, message:'Only accepted ₹ this currency symbol'})
         }
 
-        if(!isValid(availableSizes)){
-            return res.status(400).send({status:false, message:'AvailableSizes is required'})
+        // if(!isValid(availableSizes)){
+        //     return res.status(400).send({status:false, message:'AvailableSizes is required'})
+        // }
+            // availableSizes=["S", "XS", "M", "X", "L", "XXL", "XL"]
+        if (availableSizes&&availableSizes=="object") {
+            if (!availableSizes) return res.status(400).send({ status: false, msg: "provide size" })
+            let size=availableSizes.split(" ").map(x=>x.trim())
+           for (let i=0;i<size.length;i++){
+            if(!(["S", "XS", "M", "X", "L", "XXL", "XL"].includes(size[i])))
+            return res.status(400).send({ status: false, msg: `Size should be among ${["S", "XS", "M", "X", "L", "XXL", "XL"]}` })
+           }
+           // if (!isValid(size)){
+                // if(["S", "XS", "M", "X", "L", "XXL", "XL"].includes(size) == false)
+                // return res.status(400).send({ status: false, msg: `Size should be among ${["S", "XS", "M", "X", "L", "XXL", "XL"]}` })
+             
+           availableSizes = size[i].toUpperCase()
+            console.log(availableSizes)
         }
-      
         let files = req.files
 
         if (!files){
@@ -112,12 +127,18 @@ const getProductsByQuery = async function(req,res)
         
         if (size) {
             if (!size) return res.status(400).send({ status: false, msg: "provide size" })
-            if (!isValid(size)){
-                if(["S", "XS", "M", "X", "L", "XXL", "XL"].includes(size) == false)
-                return res.status(400).send({ status: false, msg: `Size should be among ${["S", "XS", "M", "X", "L", "XXL", "XL"]}` })
-            }  
-            filterQuery['availableSizes'] = size.toUpperCase()
-        };
+            let size=size.split(" ").map(x=>x.trim())
+           for (let i=0;i<size.length;i++){
+            if(!(["S", "XS", "M", "X", "L", "XXL", "XL"].includes(size[i])))
+            return res.status(400).send({ status: false, msg: `Size should be among ${["S", "XS", "M", "X", "L", "XXL", "XL"]}` })
+           }
+           // if (!isValid(size)){
+                // if(["S", "XS", "M", "X", "L", "XXL", "XL"].includes(size) == false)
+                // return res.status(400).send({ status: false, msg: `Size should be among ${["S", "XS", "M", "X", "L", "XXL", "XL"]}` })
+             
+            filterQuery['availableSizes'] = size[i].toUpperCase()
+            console.log(availableSizes)
+        }
 
         if (priceGreaterThan) {
             if (!(/^(0|[1-9][0-9]*)$/.test(priceGreaterThan)))
