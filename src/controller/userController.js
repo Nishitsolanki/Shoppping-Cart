@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 
 
 
+
 //====================================  Creating Users  ======================================//
 
 const createUser = async function (req, res) {
@@ -188,9 +189,11 @@ const getuser=async function (req,res){
 
 const updateProfile = async function (req, res) {
   try {
-    const userId = req.params.userId;
+    const paramsId = req.params.userId;
+    //console.log(paramsId)
     let data = req.body;
 
+  
     if (!isValidObjectId(userId))
       return res
         .status(400)
@@ -203,6 +206,8 @@ const updateProfile = async function (req, res) {
           status: false,
           message: "for registration user data is required",
         });
+
+ 
 
     let { fname, lname, email, profileImage, phone, password, address } =req.body;
 
