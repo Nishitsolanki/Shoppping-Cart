@@ -119,7 +119,7 @@ const getProductsByQuery = async function(req,res)
     try
     {
         const queryParams = req.query
-      
+
         let {size, name, priceGreaterThan, priceLessThan, priceSort} = queryParams
 
         const filterQuery = { isDeleted: false, ...req.query }
@@ -226,6 +226,9 @@ const updateProduct = async function(req,res)
     try
     {
         const paramsId = req.params.productId
+        if (!mongoose.Types.ObjectId.isValid(paramsId)) {
+            return res.status(400).send({ msg: "productId is invalid", status: false })
+        }
 
         let findProduct = await productModel.findById(paramsId)
 
@@ -234,7 +237,14 @@ const updateProduct = async function(req,res)
         }
         // res.status(200).send({status:false, message:'Success', data:findProduct})
 
+        
+
         let requestBody = req.body
+
+        if(!isValidRequestBody(requestBody)){
+            return res.status(400).send({status:false, message:"Please enter atleast one key for updation"})
+        }
+
 
         if(req.files.length){
             let files = req.files
@@ -242,11 +252,8 @@ const updateProduct = async function(req,res)
             requestBody.productImage = uploadedFileURL
         }
 
-        
-        if(!isValidRequestBody(requestBody)){
-            return res.status(400).send({status:false, message:"Please enter atleast one key for updation"})
-        }
-
+      
+       
         const {title, description, price, currencyId, currencyFormat, availableSizes} = requestBody
 
         if(title){

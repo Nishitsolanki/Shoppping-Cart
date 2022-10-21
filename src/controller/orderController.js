@@ -25,6 +25,14 @@ const createOrder = async (req, res) => {
         if (validation.isValidBodyy(data))
             return res.status(400).send({ status: false, message: "Body cannot be empty" });
 
+   // AUTHORIZATION
+        //-->
+        let tokenUserId = req.tokenId
+        if(tokenUserId !== userId){
+            return res.status(403).send({status:false, message:'you are not authorized'})
+        }
+        //<--
+
         let { cartId, status, cancellable } = data;
 
         if (!cartId)
@@ -107,6 +115,12 @@ const updateOrder = async (req, res) => {
         if (!validation.isValidObjectIdd(userId)) {
             return res.status(400).send({ status: false, message: "Please provide valid user Id" });
         }
+
+        let tokenUserId = req.tokenId
+        if(tokenUserId !== userId){
+            return res.status(403).send({status:false, message:'you are not authorized'})
+        }
+        //<--
 
         let findCart = await cartModel.findOne({ userId: userId });
 

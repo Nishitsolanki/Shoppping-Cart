@@ -1,4 +1,6 @@
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const { default: mongoose } = require("mongoose");
+const userModel = require("../models/userModel");
 
 
 const authentication = async function(req,res,next)
@@ -43,20 +45,30 @@ const authentication = async function(req,res,next)
 }
 
 
-let authorization=async function(req,res,next){
-    try{
-          let userId=req.params.userId;
-          let tokenId=req.tokenId
-          console.log(tokenId)
+// let authorization=async function(req,res,next){
+//     try{
 
-          if(userId==tokenId){
-            next();
-          }else{
-            res.send("not authorised")
-          }
-    }
-    catch(error){
-        res.status(500).send(error.message)
-    }
-}
-module.exports = {authentication,authorization}
+
+//         let userId=req.params.userId;
+
+//         if (!mongoose.Types.ObjectId.isValid(userId)) {
+//             return res.status(400).send({ msg: "userId is invalid", status: false })
+//         }
+
+//         let user=await userModel.findById(userId);
+//         if(!user){
+//             res.status(404).send("No user found with this userId");
+//         }
+   
+//           let tokenId=req.tokenId
+//           if(userId==tokenId){
+//             next();
+//           }else{
+//             res.send("not authorised")
+//           }
+   // }
+//     catch(error){
+//         res.status(500).send(error.message)
+//     }
+// }
+module.exports = {authentication}
